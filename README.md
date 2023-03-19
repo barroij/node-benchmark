@@ -67,6 +67,6 @@ By default the operation performed on the Xfs reads the values of 2 Xfs and writ
 
 | objType | rw time (ms) | ro time (ms)|
 |---------|:------------:|------------:|
-|  obj    | 3131         | 2939        |
-|  cls1   | **12883**    | **1646**    |
-|  cls2   | 2310         | 2265        |
+|  obj    | 3708         | 3771        |
+|  cls1   | **13729**    | **2687**    |
+|  cls2   | 2746         | 2829        |

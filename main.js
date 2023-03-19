@@ -48,12 +48,14 @@ function newXfCls2(Xx, Xy, Yx, Yy, Tx, Ty) {
 function readAndWriteProps(parent/*: Readonly<IXfObj>*/, child/*: Readonly<IXfObj>*/, out /*: IXfObj*/) {
     const { Xx: p_Xx, Xy: p_Xy, Yx: p_Yx, Yy: p_Yy, Tx: p_Tx, Ty: p_Ty } = parent;
     const { Xx: c_Xx, Xy: c_Xy, Yx: c_Yx, Yy: c_Yy, Tx: c_Tx, Ty: c_Ty } = child;
-    out.Xx = p_Xx * c_Xx + p_Yx * c_Xy;
-    out.Xy = p_Xy * c_Xx + p_Yy * c_Xy;
-    out.Yx = p_Xx * c_Yx + p_Yx * c_Yy;
-    out.Yy = p_Xy * c_Yx + p_Yy * c_Yy;
-    out.Tx = p_Xx * c_Tx + p_Yx * c_Ty + p_Tx;
-    out.Ty = p_Xy * c_Tx + p_Yy * c_Ty + p_Ty;
+    const Xx = (out.Xx = p_Xx * c_Xx + p_Yx * c_Xy);
+    const Xy = (out.Xy = p_Xy * c_Xx + p_Yy * c_Xy);
+    const Yx = (out.Yx = p_Xx * c_Yx + p_Yx * c_Yy);
+    const Yy = (out.Yy = p_Xy * c_Yx + p_Yy * c_Yy);
+    const Tx = (out.Tx = p_Xx * c_Tx + p_Yx * c_Ty + p_Tx);
+    const Ty = (out.Ty = p_Xy * c_Tx + p_Yy * c_Ty + p_Ty);
+    // retun a value the is non-sense, but that should be roughly the same as the one returned by readPropsOnly
+    return (0.1 + Xx) - (-0.1 + Xy) + (0.1 + Yx) - (-0.1 + Yy) + (0.1 + Tx) - (-0.1 + Ty)
 }
 
 //---------------------------------------------------------------------------------------
@@ -62,13 +64,13 @@ function readPropsOnly(parent/*: Readonly<IXfObj>*/, child/*: Readonly<IXfObj>*/
     const { Xx: p_Xx, Xy: p_Xy, Yx: p_Yx, Yy: p_Yy, Tx: p_Tx, Ty: p_Ty } = parent;
     const { Xx: c_Xx, Xy: c_Xy, Yx: c_Yx, Yy: c_Yy, Tx: c_Tx, Ty: c_Ty } = child;
     const { Xx: o_Xx, Xy: o_Xy, Yx: o_Yx, Yy: o_Yy, Tx: o_Tx, Ty: o_Ty } = out;
-    const Xx = o_Xx + p_Xx * c_Xx + p_Yx * c_Xy;
-    const Xy = o_Xy + p_Xy * c_Xx + p_Yy * c_Xy;
-    const Yx = o_Yx + p_Xx * c_Yx + p_Yx * c_Yy;
-    const Yy = o_Yy + p_Xy * c_Yx + p_Yy * c_Yy;
-    const Tx = o_Tx + p_Xx * c_Tx + p_Yx * c_Ty + p_Tx;
-    const Ty = o_Ty + p_Xy * c_Tx + p_Yy * c_Ty + p_Ty;
-    return Xx -Xy + Yx - Yy + Tx - Ty
+    const Xx =  o_Xx + p_Xx * c_Xx + p_Yx * c_Xy;
+    const Xy = -o_Xy + p_Xy * c_Xx + p_Yy * c_Xy;
+    const Yx =  o_Yx + p_Xx * c_Yx + p_Yx * c_Yy;
+    const Yy = -o_Yy + p_Xy * c_Yx + p_Yy * c_Yy;
+    const Tx =  o_Tx + p_Xx * c_Tx + p_Yx * c_Ty + p_Tx;
+    const Ty = -o_Ty + p_Xy * c_Tx + p_Yy * c_Ty + p_Ty;
+    return Xx - Xy + Yx - Yy + Tx - Ty  // retun a value the is non-sense
 }
 
 
@@ -110,13 +112,14 @@ function main() {
     }
 
     // this the main operation that will be run multiple times to be measured
+    let x = 0
     const cb = () => {
         let leftK = 0;
         let rightK = 0;
-        let outK = 0;0
-        let x = 0
+        let outK = 0;
         for (let i = 0; i < N; ++i) {
             for (let j = 0; j < N; ++j) {
+                x = 0
                 x += op(leftXfs[leftK++], rightXfs[rightK++], outXfs[outK++]);
                 x -= op(leftXfs[leftK++], rightXfs[rightK++], outXfs[outK++]);
             }
@@ -136,6 +139,7 @@ function main() {
     const t1 = performance.now();
     const time = `${(t1 - t0).toFixed(0)}`;
     console.log(`objType = ${args[0]} - operation = ${opType} : ${time} ms.`);
+   // console.log(x)
 }
 
 main()
