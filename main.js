@@ -45,7 +45,7 @@ function newXfCls2(Xx, Xy, Yx, Yy, Tx, Ty) {
 }
 //---------------------------------------------------------------------------------------
 
-function compose(parent/*: Readonly<IXfObj>*/, child/*: Readonly<IXfObj>*/, out /*: IXfObj*/) {
+function readAndWriteProps(parent/*: Readonly<IXfObj>*/, child/*: Readonly<IXfObj>*/, out /*: IXfObj*/) {
     const { Xx: p_Xx, Xy: p_Xy, Yx: p_Yx, Yy: p_Yy, Tx: p_Tx, Ty: p_Ty } = parent;
     const { Xx: c_Xx, Xy: c_Xy, Yx: c_Yx, Yy: c_Yy, Tx: c_Tx, Ty: c_Ty } = child;
     out.Xx = p_Xx * c_Xx + p_Yx * c_Xy;
@@ -57,17 +57,41 @@ function compose(parent/*: Readonly<IXfObj>*/, child/*: Readonly<IXfObj>*/, out 
 }
 
 //---------------------------------------------------------------------------------------
+
+function readPropsOnly(parent/*: Readonly<IXfObj>*/, child/*: Readonly<IXfObj>*/, out /*: IXfObj*/) {
+    const { Xx: p_Xx, Xy: p_Xy, Yx: p_Yx, Yy: p_Yy, Tx: p_Tx, Ty: p_Ty } = parent;
+    const { Xx: c_Xx, Xy: c_Xy, Yx: c_Yx, Yy: c_Yy, Tx: c_Tx, Ty: c_Ty } = child;
+    const { Xx: o_Xx, Xy: o_Xy, Yx: o_Yx, Yy: o_Yy, Tx: o_Tx, Ty: o_Ty } = out;
+    const Xx = o_Xx + p_Xx * c_Xx + p_Yx * c_Xy;
+    const Xy = o_Xy + p_Xy * c_Xx + p_Yy * c_Xy;
+    const Yx = o_Yx + p_Xx * c_Yx + p_Yx * c_Yy;
+    const Yy = o_Yy + p_Xy * c_Yx + p_Yy * c_Yy;
+    const Tx = o_Tx + p_Xx * c_Tx + p_Yx * c_Ty + p_Tx;
+    const Ty = o_Ty + p_Xy * c_Tx + p_Yy * c_Ty + p_Ty;
+    return Xx -Xy + Yx - Yy + Tx - Ty
+}
+
+
+//---------------------------------------------------------------------------------------
 function main() {
     const args = process.argv.slice(2);
-    const arg = args[0]
+    const objType = args[0]
+
     let newXf
+         if (objType === 'obj' ) { newXf = newXfObj  }
+    else if (objType === 'cls1') { newXf = newXfCls1 }
+    else if (objType === 'cls2') { newXf = newXfCls2 }
+    else { throw new Error (`unknown object type ${objType}`) }
 
-         if (arg === 'obj' ) { newXf = newXfObj  }
-    else if (arg === 'cls1') { newXf = newXfCls1 }
-    else if (arg === 'cls2') { newXf = newXfCls2 }
-    else { throw new Error (`unknown type ${arg}`) }
+    let opType = 'rw'
+    if (args[1]) {
+        opType = args[1]
+    }
 
-    console.log(`mode=${args[0]}`)
+    let op
+         if (opType === 'rw') { op = readAndWriteProps }
+    else if (opType === 'ro') { op = readPropsOnly     }
+    else { throw new Error (`unknown operation type ${objType}`) }
 
     const N = 500;
     // --- Initialisation of 3 arrays of 2*N*N Xfs. Some with integer/smi values, other with double values
@@ -86,14 +110,15 @@ function main() {
     }
 
     // this the main operation that will be run multiple times to be measured
-    const op = () => {
+    const cb = () => {
         let leftK = 0;
         let rightK = 0;
-        let outK = 0;
+        let outK = 0;0
+        let x = 0
         for (let i = 0; i < N; ++i) {
             for (let j = 0; j < N; ++j) {
-                compose(leftXfs[leftK++], rightXfs[rightK++], outXfs[outK++]);
-                compose(leftXfs[leftK++], rightXfs[rightK++], outXfs[outK++]);
+                x += op(leftXfs[leftK++], rightXfs[rightK++], outXfs[outK++]);
+                x -= op(leftXfs[leftK++], rightXfs[rightK++], outXfs[outK++]);
             }
         }
     }
@@ -101,7 +126,7 @@ function main() {
     const runCount = 200;
     const run = () => {
         for (let i = 0; i < runCount; ++i) {
-            op();
+            cb();
         }
     };
     run(); // warm up
@@ -110,7 +135,7 @@ function main() {
     run(); // bench
     const t1 = performance.now();
     const time = `${(t1 - t0).toFixed(0)}`;
-    console.log(`time ${arg} : ${time} ms.`);
+    console.log(`objType = ${args[0]} - operation = ${opType} : ${time} ms.`);
 }
 
 main()

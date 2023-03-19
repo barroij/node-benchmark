@@ -48,3 +48,31 @@ class XfCls2 {
 `node main.js cls2`
 
 
+## Variations
+
+By default the operation performed on the Xfs reads the values of 2 Xfs and write in the 3rd Xf. It is a read and write operation. To compare performance when only read operations are made on the xf, the option `ro` can be added as a secodn argument.
+
+`node main.js obj ro`
+
+`node main.js cls1 ro`
+
+`node main.js cls2 ro`
+
+
+## run them all
+
+`node main.js obj rw && node main.js obj ro && node main.js cls1 rw && node main.js cls1 ro && node main.js cls2 rw && node main.js cls2 ro`
+
+## results
+
+objType = obj - operation = rw : 3131 ms.
+
+objType = obj - operation = ro : 2939 ms.
+
+objType = cls1 - operation = rw : 12883 ms.
+
+objType = cls1 - operation = ro : 1646 ms.
+
+objType = cls2 - operation = rw : 2310 ms.
+
+objType = cls2 - operation = ro : 2265 ms.
