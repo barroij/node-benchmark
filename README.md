@@ -1,6 +1,6 @@
 # node-benchmark
 
-## `obj` Vs `cls1` Vs `cls2` Vs `cls3` Vs `arr1` Vs `arr2` Vs `arr3` Vs `arr4`
+## `Plain Object` Vs `Class` Vs `Array`
 
 `obj` means plain javascript object such as `{ Xx: 1, Xy: 0, Yx: 0, Yy: 1, Tx: 0, Ty: 0 }`
 
@@ -89,6 +89,8 @@ By default the operation performed on the Xfs reads the values of 2 Xfs and writ
 |  arr2   | **5415**     | **8152**    |
 |  arr3   | 2237         | 2111        |
 |  arr4   | 2219         | 2055        |
+
+
 ## profiling
 
 `node --cpu-prof --cpu-prof-name cls1_rw.cpuprofile  main.js cls1 rw` and open it with Chrome Dev Tools
