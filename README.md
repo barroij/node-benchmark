@@ -69,3 +69,7 @@ By default the operation performed on the Xfs reads the values of 2 Xfs and writ
 |  obj    | 3708         | 3771        |
 |  cls1   | **13729**    | **2687**    |
 |  cls2   | 2746         | 2829        |
+
+## profiling
+
+`node --cpu-prof --cpu-prof-name cls1_rw.cpuprofile  main.js cls1 rw` and open it with Chrome Dev Tools
