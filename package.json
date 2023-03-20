@@ -1,0 +1,10 @@
+{
+  "name": "node-benchmark",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "run-all": "node main.js obj rw && node main.js obj ro && node main.js cls1 rw && node main.js cls1 ro && node main.js cls2 rw && node main.js cls2 ro && node main.js cls3 rw && node main.js cls3 ro && node main.js arr1 rw && node main.js arr1 ro && node main.js arr2 rw && node main.js arr2 ro && node main.js arr3 rw && node main.js arr3 ro && node main.js arr4 rw && node main.js arr4 ro"
+  }
+}
