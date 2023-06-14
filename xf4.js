@@ -2,8 +2,8 @@
 
 //---------------------------------------------------------------------------------------
 // XfObj
-function newXfObj(Xx, Xy, Yx, Yy, Tx, Ty) {
-    return { Xx, Xy, Yx, Yy, Tx, Ty };
+function newXf4Obj(Xx, Xy, Yx, Yy) {
+    return { Xx, Xy, Yx, Yy };
 }
 //---------------------------------------------------------------------------------------
 // XfCls1
@@ -12,37 +12,31 @@ class XfCls1 {
     Xy;
     Yx;
     Yy;
-    Tx;
-    Ty;
-    constructor(Xx, Xy, Yx, Yy, Tx, Ty) {
+    constructor(Xx, Xy, Yx, Yy) {
         this.Xx = Xx;
         this.Xy = Xy;
         this.Yx = Yx;
         this.Yy = Yy;
-        this.Tx = Tx;
-        this.Ty = Ty;
     }
 }
 
-function newXfCls1(Xx, Xy, Yx, Yy, Tx, Ty) {
-    return new XfCls1(Xx, Xy, Yx, Yy, Tx, Ty);
+function newXf4Cls1(Xx, Xy, Yx, Yy) {
+    return new XfCls1(Xx, Xy, Yx, Yy);
 }
 
 //---------------------------------------------------------------------------------------
 // XfCls2
 class XfCls2 {
-    constructor(Xx, Xy, Yx, Yy, Tx, Ty) {
+    constructor(Xx, Xy, Yx, Yy) {
         this.Xx = Xx;
         this.Xy = Xy;
         this.Yx = Yx;
         this.Yy = Yy;
-        this.Tx = Tx;
-        this.Ty = Ty;
     }
 }
 
-function newXfCls2(Xx, Xy, Yx, Yy, Tx, Ty) {
-    return new XfCls2(Xx, Xy, Yx, Yy, Tx, Ty);
+function newXf4Cls2(Xx, Xy, Yx, Yy) {
+    return new XfCls2(Xx, Xy, Yx, Yy);
 }
 
 //---------------------------------------------------------------------------------------
@@ -52,89 +46,77 @@ class XfCls3 {
     Xy = -0;
     Yx = -0;
     Yy = -0;
-    Tx = -0;
-    Ty = -0;
-    constructor(Xx, Xy, Yx, Yy, Tx, Ty) {
+    constructor(Xx, Xy, Yx, Yy) {
         this.Xx = Xx;
         this.Xy = Xy;
         this.Yx = Yx;
         this.Yy = Yy;
-        this.Tx = Tx;
-        this.Ty = Ty;
     }
 }
 
-function newXfCls3(Xx, Xy, Yx, Yy, Tx, Ty) {
-    return new XfCls3(Xx, Xy, Yx, Yy, Tx, Ty);
+function newXf4Cls3(Xx, Xy, Yx, Yy) {
+    return new XfCls3(Xx, Xy, Yx, Yy);
 }
 
 
 //---------------------------------------------------------------------------------------
-function newXfArr1(Xx, Xy, Yx, Yy, Tx, Ty) {
-    return [Xx, Xy, Yx, Yy, Tx, Ty];
+function newXf4Arr1(Xx, Xy, Yx, Yy) {
+    return [Xx, Xy, Yx, Yy];
 }
 
 //---------------------------------------------------------------------------------------
-function newXfArr2(Xx, Xy, Yx, Yy, Tx, Ty) {
-    return [-0 + Xx, -0 + Xy, -0 + Yx, -0 + Yy, -0 + Tx, -0 + Ty];
+function newXf4Arr2(Xx, Xy, Yx, Yy) {
+    return [-0 + Xx, -0 + Xy, -0 + Yx, -0 + Yy];
 }
 
 //---------------------------------------------------------------------------------------
 function readAndWriteProps_obj(parent/*: Readonly<IXfObj>*/, child/*: Readonly<IXfObj>*/, out /*: IXfObj*/) {
-    const { Xx: p_Xx, Xy: p_Xy, Yx: p_Yx, Yy: p_Yy, Tx: p_Tx, Ty: p_Ty } = parent;
-    const { Xx: c_Xx, Xy: c_Xy, Yx: c_Yx, Yy: c_Yy, Tx: c_Tx, Ty: c_Ty } = child;
+    const { Xx: p_Xx, Xy: p_Xy, Yx: p_Yx, Yy: p_Yy } = parent;
+    const { Xx: c_Xx, Xy: c_Xy, Yx: c_Yx, Yy: c_Yy } = child;
     const Xx = (out.Xx = p_Xx * c_Xx + p_Yx * c_Xy);
     const Xy = (out.Xy = p_Xy * c_Xx + p_Yy * c_Xy);
     const Yx = (out.Yx = p_Xx * c_Yx + p_Yx * c_Yy);
     const Yy = (out.Yy = p_Xy * c_Yx + p_Yy * c_Yy);
-    const Tx = (out.Tx = p_Xx * c_Tx + p_Yx * c_Ty + p_Tx);
-    const Ty = (out.Ty = p_Xy * c_Tx + p_Yy * c_Ty + p_Ty);
     // retun a value the is non-sense, but that should be roughly the same as the one returned by readPropsOnly
-    return (0.1 + Xx) - (-0.1 + Xy) + (0.1 + Yx) - (-0.1 + Yy) + (0.1 + Tx) - (-0.1 + Ty)
+    return (0.1 + Xx) - (-0.1 + Xy) + (0.1 + Yx) - (-0.1 + Yy);
 }
 
 //---------------------------------------------------------------------------------------
 
 function readPropsOnly_obj(parent/*: Readonly<IXfObj>*/, child/*: Readonly<IXfObj>*/, out /*: Readonly<IXfObj>*/) {
-    const { Xx: p_Xx, Xy: p_Xy, Yx: p_Yx, Yy: p_Yy, Tx: p_Tx, Ty: p_Ty } = parent;
-    const { Xx: c_Xx, Xy: c_Xy, Yx: c_Yx, Yy: c_Yy, Tx: c_Tx, Ty: c_Ty } = child;
-    const { Xx: o_Xx, Xy: o_Xy, Yx: o_Yx, Yy: o_Yy, Tx: o_Tx, Ty: o_Ty } = out;
+    const { Xx: p_Xx, Xy: p_Xy, Yx: p_Yx, Yy: p_Yy } = parent;
+    const { Xx: c_Xx, Xy: c_Xy, Yx: c_Yx, Yy: c_Yy } = child;
+    const { Xx: o_Xx, Xy: o_Xy, Yx: o_Yx, Yy: o_Yy } = out;
     const Xx =  o_Xx + p_Xx * c_Xx + p_Yx * c_Xy;
     const Xy = -o_Xy + p_Xy * c_Xx + p_Yy * c_Xy;
     const Yx =  o_Yx + p_Xx * c_Yx + p_Yx * c_Yy;
     const Yy = -o_Yy + p_Xy * c_Yx + p_Yy * c_Yy;
-    const Tx =  o_Tx + p_Xx * c_Tx + p_Yx * c_Ty + p_Tx;
-    const Ty = -o_Ty + p_Xy * c_Tx + p_Yy * c_Ty + p_Ty;
-    return Xx - Xy + Yx - Yy + Tx - Ty  // retun a value the is non-sense
+    return Xx - Xy + Yx - Yy;  // retun a value the is non-sense
 }
 
 //---------------------------------------------------------------------------------------
 function readAndWriteProps_arr(parent/*: ReadonlyArray<number>*/, child/*: ReadonlyArray<number>*/, out /*: Array<number>*/) {
-    const [ p_Xx, p_Xy, p_Yx, p_Yy, p_Tx, p_Ty ] = parent;
-    const [ c_Xx, c_Xy, c_Yx, c_Yy, c_Tx, c_Ty ] = child;
+    const [ p_Xx, p_Xy, p_Yx, p_Yy ] = parent;
+    const [ c_Xx, c_Xy, c_Yx, c_Yy ] = child;
     const Xx = (out[0] = p_Xx * c_Xx + p_Yx * c_Xy);
     const Xy = (out[1] = p_Xy * c_Xx + p_Yy * c_Xy);
     const Yx = (out[2] = p_Xx * c_Yx + p_Yx * c_Yy);
     const Yy = (out[3] = p_Xy * c_Yx + p_Yy * c_Yy);
-    const Tx = (out[4] = p_Xx * c_Tx + p_Yx * c_Ty + p_Tx);
-    const Ty = (out[5] = p_Xy * c_Tx + p_Yy * c_Ty + p_Ty);
     // retun a value the is non-sense, but that should be roughly the same as the one returned by readPropsOnly
-    return (0.1 + Xx) - (-0.1 + Xy) + (0.1 + Yx) - (-0.1 + Yy) + (0.1 + Tx) - (-0.1 + Ty)
+    return (0.1 + Xx) - (-0.1 + Xy) + (0.1 + Yx) - (-0.1 + Yy);
 }
 
 
 //---------------------------------------------------------------------------------------
 function readPropsOnly_arr(parent/*: ReadonlyArray<number>*/, child/*: ReadonlyArray<number>*/, out /*: ReadonlyArray<number>*/) {
-    const [ p_Xx, p_Xy, p_Yx, p_Yy, p_Tx, p_Ty ] = parent;
-    const [ c_Xx, c_Xy, c_Yx, c_Yy, c_Tx, c_Ty ] = child;
-    const [ o_Xx, o_Xy, o_Yx, o_Yy, o_Tx, o_Ty ] = out;
+    const [ p_Xx, p_Xy, p_Yx, p_Yy ] = parent;
+    const [ c_Xx, c_Xy, c_Yx, c_Yy ] = child;
+    const [ o_Xx, o_Xy, o_Yx, o_Yy ] = out;
     const Xx =  o_Xx + p_Xx * c_Xx + p_Yx * c_Xy;
     const Xy = -o_Xy + p_Xy * c_Xx + p_Yy * c_Xy;
     const Yx =  o_Yx + p_Xx * c_Yx + p_Yx * c_Yy;
     const Yy = -o_Yy + p_Xy * c_Yx + p_Yy * c_Yy;
-    const Tx =  o_Tx + p_Xx * c_Tx + p_Yx * c_Ty + p_Tx;
-    const Ty = -o_Ty + p_Xy * c_Tx + p_Yy * c_Ty + p_Ty;
-    return Xx - Xy + Yx - Yy + Tx - Ty  // retun a value the is non-sense
+    return Xx - Xy + Yx - Yy; // retun a value the is non-sense
 }
 
 //---------------------------------------------------------------------------------------
@@ -143,22 +125,16 @@ function readAndWriteProps_arr2(parent/*: ReadonlyArray<number>*/, child/*: Read
     const p_Xy = parent[1];
     const p_Yx = parent[2];
     const p_Yy = parent[3];
-    const p_Tx = parent[4];
-    const p_Ty = parent[5];
     const c_Xx = child[0];
     const c_Xy = child[1];
     const c_Yx = child[2];
     const c_Yy = child[3];
-    const c_Tx = child[4];
-    const c_Ty = child[5];
     const Xx = (out[0] = p_Xx * c_Xx + p_Yx * c_Xy);
     const Xy = (out[1] = p_Xy * c_Xx + p_Yy * c_Xy);
     const Yx = (out[2] = p_Xx * c_Yx + p_Yx * c_Yy);
     const Yy = (out[3] = p_Xy * c_Yx + p_Yy * c_Yy);
-    const Tx = (out[4] = p_Xx * c_Tx + p_Yx * c_Ty + p_Tx);
-    const Ty = (out[5] = p_Xy * c_Tx + p_Yy * c_Ty + p_Ty);
     // retun a value the is non-sense, but that should be roughly the same as the one returned by readPropsOnly
-    return (0.1 + Xx) - (-0.1 + Xy) + (0.1 + Yx) - (-0.1 + Yy) + (0.1 + Tx) - (-0.1 + Ty)
+    return (0.1 + Xx) - (-0.1 + Xy) + (0.1 + Yx) - (-0.1 + Yy);
 }
 
 //---------------------------------------------------------------------------------------
@@ -168,27 +144,19 @@ function readPropsOnly_arr2(parent/*: ReadonlyArray<number>*/, child/*: Readonly
     const p_Xy = parent[1];
     const p_Yx = parent[2];
     const p_Yy = parent[3];
-    const p_Tx = parent[4];
-    const p_Ty = parent[5];
     const c_Xx = child[0];
     const c_Xy = child[1];
     const c_Yx = child[2];
     const c_Yy = child[3];
-    const c_Tx = child[4];
-    const c_Ty = child[5];
     const o_Xx = out[0];
     const o_Xy = out[1];
     const o_Yx = out[2];
     const o_Yy = out[3];
-    const o_Tx = out[4];
-    const o_Ty = out[5];
     const Xx =  o_Xx + p_Xx * c_Xx + p_Yx * c_Xy;
     const Xy = -o_Xy + p_Xy * c_Xx + p_Yy * c_Xy;
     const Yx =  o_Yx + p_Xx * c_Yx + p_Yx * c_Yy;
     const Yy = -o_Yy + p_Xy * c_Yx + p_Yy * c_Yy;
-    const Tx =  o_Tx + p_Xx * c_Tx + p_Yx * c_Ty + p_Tx;
-    const Ty = -o_Ty + p_Xy * c_Tx + p_Yy * c_Ty + p_Ty;
-    return Xx - Xy + Yx - Yy + Tx - Ty  // retun a value the is non-sense
+    return Xx - Xy + Yx - Yy; // retun a value the is non-sense
 }
 
 //---------------------------------------------------------------------------------------
@@ -204,16 +172,16 @@ function main() {
         throw new Error (`unknown operation type ${objType}`)
     }
 
-    let newXf
+    let newXf4
     let op
-         if (objType === 'obj' ) { newXf =  newXfObj; op = opType === 'rw' ?  readAndWriteProps_obj :  readPropsOnly_obj; }
-    else if (objType === 'cls1') { newXf = newXfCls1; op = opType === 'rw' ?  readAndWriteProps_obj :  readPropsOnly_obj; }
-    else if (objType === 'cls2') { newXf = newXfCls2; op = opType === 'rw' ?  readAndWriteProps_obj :  readPropsOnly_obj; }
-    else if (objType === 'cls3') { newXf = newXfCls3; op = opType === 'rw' ?  readAndWriteProps_obj :  readPropsOnly_obj; }
-    else if (objType === 'arr1') { newXf = newXfArr1; op = opType === 'rw' ?  readAndWriteProps_arr :  readPropsOnly_arr; }
-    else if (objType === 'arr2') { newXf = newXfArr2; op = opType === 'rw' ?  readAndWriteProps_arr :  readPropsOnly_arr; }
-    else if (objType === 'arr3') { newXf = newXfArr1; op = opType === 'rw' ? readAndWriteProps_arr2 : readPropsOnly_arr2; }
-    else if (objType === 'arr4') { newXf = newXfArr2; op = opType === 'rw' ? readAndWriteProps_arr2 : readPropsOnly_arr2; }
+         if (objType === 'obj' ) { newXf4 =  newXf4Obj; op = opType === 'rw' ?  readAndWriteProps_obj : readPropsOnly_obj; }
+    else if (objType === 'cls1') { newXf4 = newXf4Cls1; op = opType === 'rw' ?  readAndWriteProps_obj : readPropsOnly_obj; }
+    else if (objType === 'cls2') { newXf4 = newXf4Cls2; op = opType === 'rw' ?  readAndWriteProps_obj : readPropsOnly_obj; }
+    else if (objType === 'cls3') { newXf4 = newXf4Cls3; op = opType === 'rw' ?  readAndWriteProps_obj : readPropsOnly_obj; }
+    else if (objType === 'arr1') { newXf4 = newXf4Arr1; op = opType === 'rw' ?  readAndWriteProps_arr : readPropsOnly_arr; }
+    else if (objType === 'arr2') { newXf4 = newXf4Arr2; op = opType === 'rw' ?  readAndWriteProps_arr : readPropsOnly_arr; }
+    else if (objType === 'arr3') { newXf4 = newXf4Arr1; op = opType === 'rw' ? readAndWriteProps_arr2 : readPropsOnly_arr2; }
+    else if (objType === 'arr4') { newXf4 = newXf4Arr2; op = opType === 'rw' ? readAndWriteProps_arr2 : readPropsOnly_arr2; }
     else { throw new Error (`unknown object type ${objType}`) }
 
 
@@ -225,12 +193,12 @@ function main() {
     const outXfs = [];
     for (let i = 0; i < N; ++i) {
         for (let j = 0; j < N; ++j) {
-            leftXfs.push(newXf(i + 1, 0, j - 1, 0, i, j));
-            leftXfs.push(newXf(i + 1.1, -0, j - 1.1, -0, i + 0.1, j + 0.1));
-            rightXfs.push(newXf(i + 1.1, -0, j - 1.1, -0, i + 0.1, j + 0.1));
-            rightXfs.push(newXf(i + 1, 0, j - 1, 0, i, j));
-            outXfs.push(newXf(0.1, 0.1, 0.1, 0.1, 0.1, 0.1));
-            outXfs.push(newXf(0.1, 0.1, 0.1, 0.1, 0.1, 0.1));
+            leftXfs.push(newXf4(i + 1, 0, j - 1, 0));
+            leftXfs.push(newXf4(i + 1.1, -0, j - 1.1, -0));
+            rightXfs.push(newXf4(i + 1.1, -0, j - 1.1, -0));
+            rightXfs.push(newXf4(i + 1, 0, j - 1, 0));
+            outXfs.push(newXf4(0.1, 0.1, 0.1, 0.1));
+            outXfs.push(newXf4(0.1, 0.1, 0.1, 0.1));
         }
     }
 
@@ -261,7 +229,7 @@ function main() {
     run(); // bench
     const t1 = performance.now();
     const time = `${(t1 - t0).toFixed(0)}`;
-    console.log(`objType = ${args[0]} - operation = ${opType} : ${time} ms.`);
+    console.log(`xf4 : objType = ${args[0]} - operation = ${opType} : ${time} ms.`);
    // console.log(x)
 }
 

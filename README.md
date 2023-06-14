@@ -70,7 +70,7 @@ By default the operation performed on the Xfs reads the values of 2 Xfs and writ
 
 ## How to run
 
-`node main.js obj rw` or `node main.js obj ro` or `node main.js cls1 rw` or `node main.js cls1 ro`...
+`node xf6.js obj rw` or `node xf6.js obj ro` or `node xf6.js cls1 rw` or `node xf6.js cls1 ro`...
 
 
 ## run them all
@@ -93,4 +93,4 @@ By default the operation performed on the Xfs reads the values of 2 Xfs and writ
 
 ## profiling
 
-`node --cpu-prof --cpu-prof-name cls1_rw.cpuprofile  main.js cls1 rw` and open it with Chrome Dev Tools
+`node --cpu-prof --cpu-prof-name cls1_rw.cpuprofile xf6.js cls1 rw` and open it with Chrome Dev Tools

@@ -5,6 +5,7 @@
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "run-all": "node main.js obj rw && node main.js obj ro && node main.js cls1 rw && node main.js cls1 ro && node main.js cls2 rw && node main.js cls2 ro && node main.js cls3 rw && node main.js cls3 ro && node main.js arr1 rw && node main.js arr1 ro && node main.js arr2 rw && node main.js arr2 ro && node main.js arr3 rw && node main.js arr3 ro && node main.js arr4 rw && node main.js arr4 ro"
+    "run-all-xf6": "node xf6.js obj rw && node xf6.js obj ro && node xf6.js cls1 rw && node xf6.js cls1 ro && node xf6.js cls2 rw && node xf6.js cls2 ro && node xf6.js cls3 rw && node xf6.js cls3 ro && node xf6.js arr1 rw && node xf6.js arr1 ro && node xf6.js arr2 rw && node xf6.js arr2 ro && node xf6.js arr3 rw && node xf6.js arr3 ro && node xf6.js arr4 rw && node xf6.js arr4 ro",
+    "run-all-xf4": "node xf4.js obj rw && node xf4.js obj ro && node xf4.js cls1 rw && node xf4.js cls1 ro && node xf4.js cls2 rw && node xf4.js cls2 ro && node xf4.js cls3 rw && node xf4.js cls3 ro && node xf4.js arr1 rw && node xf4.js arr1 ro && node xf4.js arr2 rw && node xf4.js arr2 ro && node xf4.js arr3 rw && node xf4.js arr3 ro && node xf4.js arr4 rw && node xf4.js arr4 ro"
   }
 }
